@@ -1,7 +1,28 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import MessagesHeader from './components/MessagesHeader.vue'
+import MessagesSidebar from './components/MessagesSidebar.vue'
+
+const msgSidebarOpen = ref(true)
+</script>
 
 <template>
-  <div>
-    <h1 class="bg-red-300">chat</h1>
-  </div>
+  <main>
+    <div class="relative flex">
+      <MessagesSidebar
+        :msgSidebarOpen="msgSidebarOpen"
+        @close-msgsidebar="msgSidebarOpen = false"
+      >
+        <div
+          class="grow flex flex-col md:translate-x-0 transform transition-transform duration-300 ease-in-out"
+          :class="msgSidebarOpen ? 'translate-x-1/3' : 'translate-x-0'"
+        >
+          <MessagesHeader
+            :msgSidebarOpen="msgSidebarOpen"
+            @toggle-msgsidebar="msgSidebarOpen = !msgSidebarOpen"
+          ></MessagesHeader>
+        </div>
+      </MessagesSidebar>
+    </div>
+  </main>
 </template>
