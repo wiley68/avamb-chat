@@ -17,22 +17,15 @@ onMounted(() => {
 <template>
   <main>
     <div class="relative flex">
-      <MessagesSidebar
-        :msgSidebarOpen="msgSidebarOpen"
-        @close-msgsidebar="msgSidebarOpen = false"
-      >
-        <div
-          class="grow flex flex-col md:translate-x-0 transform transition-transform duration-300 ease-in-out"
-          :class="msgSidebarOpen ? 'translate-x-1/3' : 'translate-x-0'"
-        >
-          <MessagesHeader
-            :msgSidebarOpen="msgSidebarOpen"
-            @toggle-msgsidebar="msgSidebarOpen = !msgSidebarOpen"
-          ></MessagesHeader>
-          <MessagesBody></MessagesBody>
-          <MessagesFooter></MessagesFooter>
-        </div>
+      <MessagesSidebar :msgSidebarOpen="msgSidebarOpen" @close-msgsidebar="msgSidebarOpen = false">
       </MessagesSidebar>
+      <div class="grow flex flex-col md:translate-x-0 transform transition-transform duration-300 ease-in-out"
+        :class="msgSidebarOpen ? 'translate-x-1/3' : 'translate-x-0'">
+        <MessagesHeader :msgSidebarOpen="msgSidebarOpen" @toggle-msgsidebar="msgSidebarOpen = !msgSidebarOpen">
+        </MessagesHeader>
+        <MessagesBody></MessagesBody>
+        <MessagesFooter></MessagesFooter>
+      </div>
     </div>
   </main>
 </template>
