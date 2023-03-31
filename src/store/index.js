@@ -30,6 +30,65 @@ export const useStateStore = defineStore('state', {
     },
   }),
   actions: {
+    loadData() {
+      let store = this
+      var data = new FormData()
+      var xmlhttpro = createCORSRequest(
+        'POST',
+        'https://dograma.avalonbg.com/function/mobile/getparams.php'
+      )
+      const loader = $loading.show(loader_params)
+      xmlhttpro.addEventListener('loadend', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.addEventListener('error', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.addEventListener('abort', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.onreadystatechange = function () {
+        if (
+          this.readyState == 4 &&
+          JSON.parse(this.response).success == 'success'
+        ) {
+          store.state.user = JSON.parse(this.response).user
+          store.getMessages()
+        }
+      }
+      xmlhttpro.send(data)
+    },
+    getMessages() {
+      let store = this
+      var data = new FormData()
+      data.append('token', '2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z')
+      data.append('user_id', store.state.user.id)
+      var xmlhttpro = createCORSRequest(
+        'POST',
+        'https://dograma.avalonbg.com/function/get_messages.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+      )
+      const loader = $loading.show(loader_params)
+      xmlhttpro.addEventListener('loadend', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.addEventListener('error', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.addEventListener('abort', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.onreadystatechange = function () {
+        if (
+          this.readyState == 4 &&
+          JSON.parse(this.response).success == 'success'
+        ) {
+          store.state.messages = JSON.parse(this.response).messages
+          store.state.users = JSON.parse(this.response).users
+          store.state.user_gravatar = JSON.parse(this.response).user_gravatar
+        }
+      }
+      xmlhttpro.send(data)
+    },
     getUserById(user_id) {
       return this.state.users.find((element) => {
         return element.id == user_id
@@ -39,6 +98,7 @@ export const useStateStore = defineStore('state', {
       this.deleteMessage = deleteMessage
     },
     deleteMessage(message_id) {
+      let store = this
       var data = new FormData()
       data.append('token', '2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z')
       data.append('id', message_id)
@@ -61,13 +121,14 @@ export const useStateStore = defineStore('state', {
           this.readyState == 4 &&
           JSON.parse(this.response).success == 'success'
         ) {
-          methods.deleteMessageById(message_id)
-          state.deleteMessage = false
+          store.deleteMessageById(message_id)
+          store.state.deleteMessage = false
         }
       }
       xmlhttpro.send(data)
     },
     createMessage(from_user_id, to_user_id, body) {
+      let store = this
       var data = new FormData()
       data.append('token', '2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z')
       data.append('from_user_id', from_user_id)
@@ -100,7 +161,7 @@ export const useStateStore = defineStore('state', {
             created_at: JSON.parse(this.response).created_at,
             updated_at: JSON.parse(this.response).updated_at,
           }
-          this.messages.splice(0, 0, newMessage)
+          store.state.messages.splice(0, 0, newMessage)
         }
       }
       xmlhttpro.send(data)

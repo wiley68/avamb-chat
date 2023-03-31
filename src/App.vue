@@ -1,11 +1,17 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useStateStore } from './store/index'
 import MessagesHeader from './components/MessagesHeader.vue'
 import MessagesSidebar from './components/MessagesSidebar.vue'
 import MessagesBody from './components/MessagesBody.vue'
 import MessagesFooter from './components/MessagesFooter.vue'
 
 const msgSidebarOpen = ref(true)
+const store = useStateStore()
+
+onMounted(() => {
+  store.loadData()
+})
 </script>
 
 <template>

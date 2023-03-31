@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useStateStore } from '../store'
+import moment from 'moment'
 
 const props = defineProps(['msgSidebarOpen'])
 const emit = defineEmits(['close-msgsidebar'])
