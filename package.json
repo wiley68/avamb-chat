@@ -13,7 +13,8 @@
     "moment": "^2.29.4",
     "pinia": "^2.0.33",
     "vue": "^3.2.47",
-    "vue-flatpickr-component": "^11.0.3"
+    "vue-flatpickr-component": "^11.0.3",
+    "vue-loading-overlay": "^6.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",

@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import MessagesHeader from './components/MessagesHeader.vue'
 import MessagesSidebar from './components/MessagesSidebar.vue'
+import MessagesBody from './components/MessagesBody.vue'
+import MessagesFooter from './components/MessagesFooter.vue'
 
 const msgSidebarOpen = ref(true)
 </script>
@@ -21,6 +23,8 @@ const msgSidebarOpen = ref(true)
             :msgSidebarOpen="msgSidebarOpen"
             @toggle-msgsidebar="msgSidebarOpen = !msgSidebarOpen"
           ></MessagesHeader>
+          <MessagesBody></MessagesBody>
+          <MessagesFooter></MessagesFooter>
         </div>
       </MessagesSidebar>
     </div>
