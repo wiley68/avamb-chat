@@ -135,7 +135,7 @@ export const useStateStore = defineStore('store', {
 			data.append('body', body)
 			var xmlhttpro = createCORSRequest(
 				'POST',
-				'/function/create_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+				'https://dograma.avalonbg.com/function/create_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
 			)
 			const loader = $loading.show(loader_params)
 			xmlhttpro.addEventListener('loadend', (e) => {
