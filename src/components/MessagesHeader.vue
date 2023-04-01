@@ -40,7 +40,6 @@ const store = useStateStore()
 			<div class="flex">
 				<button
 					class="p-1.5 shrink-0 rounded border border-gray-200 hover:border-gray-300 shadow-sm ml-2"
-					@click.stop="store.state.page = 'Dashboard'"
 				>
 					<svg class="w-4 h-4 fill-current text-red-500" viewBox="0 0 24 24">
 						<path

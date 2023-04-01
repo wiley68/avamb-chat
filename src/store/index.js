@@ -93,8 +93,8 @@ export const useStateStore = defineStore('store', {
 				return element.id == user_id
 			})
 		},
-		changeDeleteMessage(deleteMessage) {
-			this.deleteMessage = deleteMessage
+		changeDeleteMessage(_deleteMessage) {
+			this.state.deleteMessage = _deleteMessage
 		},
 		deleteMessage(message_id) {
 			let store = this
@@ -103,7 +103,7 @@ export const useStateStore = defineStore('store', {
 			data.append('id', message_id)
 			var xmlhttpro = createCORSRequest(
 				'POST',
-				'/function/delete_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+				'https://dograma.avalonbg.com/function/delete_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
 			)
 			const loader = $loading.show(loader_params)
 			xmlhttpro.addEventListener('loadend', (e) => {
@@ -125,6 +125,11 @@ export const useStateStore = defineStore('store', {
 				}
 			}
 			xmlhttpro.send(data)
+		},
+		deleteMessageById(id) {
+			this.state.messages = this.state.messages.filter((element) => {
+				return element.id != id
+			})
 		},
 		createMessage(from_user_id, to_user_id, body) {
 			let store = this

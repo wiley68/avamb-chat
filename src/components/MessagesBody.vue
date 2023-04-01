@@ -27,7 +27,7 @@ const formatDateTime = (value) => {
 
 const deleteMessageCheck = (_delete_message_id) => {
 	delete_message_id.value = _delete_message_id
-	store.changeDeleteMessage(true)
+	store.state.deleteMessage = true
 }
 
 const today = () => {
@@ -86,46 +86,45 @@ const deleteMessage = () => {
 				<div class="text-xs text-gray-500 font-medium">
 					{{ store.getUserById(message.from_user_id).username }}
 				</div>
-			</div>
-			<div
-				class="text-sm p-3 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1 min-w-44"
-				:class="
-					message.from_user_id == store.state.current_user_id
-						? 'bg-indigo-500 text-white'
-						: 'bg-white text-gray-800'
-				"
-			>
-				{{ message.body }}
-			</div>
-			<div class="flex items-center">
-				<div class="flex-grow text-xs text-gray-500 font-medium">
-					{{ formatDateTime(message.created_at) }}
+				<div
+					class="text-sm p-3 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1 min-w-44"
+					:class="
+						message.from_user_id == store.state.current_user_id
+							? 'bg-indigo-500 text-white'
+							: 'bg-white text-gray-800'
+					"
+				>
+					{{ message.body }}
 				</div>
-				<svg
-					class="w-3 h-3 shrink-0 fill-current text-gray-400"
-					viewBox="0 0 12 12"
-				>
-					<path
-						d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
-					/>
-				</svg>
-				<button
-					@click.stop="deleteMessageCheck(message.id)"
-					title="Изтрий избраното съобщение"
-				>
+				<div class="flex items-center">
+					<div class="flex-grow text-xs text-gray-500 font-medium">
+						{{ formatDateTime(message.created_at) }}
+					</div>
 					<svg
-						class="w-5 h-5 text-red-400 hover:text-red-600"
-						viewBox="0 0 24 24"
+						class="w-3 h-3 shrink-0 fill-current text-gray-400"
+						viewBox="0 0 12 12"
 					>
 						<path
-							fill="currentColor"
-							d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
+							d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
 						/>
 					</svg>
-				</button>
+					<button
+						@click.stop="deleteMessageCheck(message.id)"
+						title="Изтрий избраното съобщение"
+					>
+						<svg
+							class="w-5 h-5 text-red-400 hover:text-red-600"
+							viewBox="0 0 24 24"
+						>
+							<path
+								fill="currentColor"
+								d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
+							/>
+						</svg>
+					</button>
+				</div>
 			</div>
 		</div>
-
 		<div class="flex justify-center">
 			<div
 				class="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 bg-white border border-gray-200 rounded-full my-5"
@@ -249,7 +248,7 @@ const deleteMessage = () => {
 		<ModalBlank
 			id="danger-modal"
 			:modalOpen="store.state.deleteMessage"
-			@close-modal="store.changeDeleteMessage(false)"
+			@close-modal="store.state.deleteMessage = false"
 		>
 			<div class="p-5 flex space-x-4">
 				<div
@@ -281,7 +280,7 @@ const deleteMessage = () => {
 					<div class="flex flex-wrap justify-end space-x-2">
 						<button
 							class="btn-sm border-gray-200 hover:border-gray-300 text-gray-600"
-							@click.stop="store.changeDeleteMessage(false)"
+							@click.stop="store.state.deleteMessage = false"
 						>
 							Откажи
 						</button>
