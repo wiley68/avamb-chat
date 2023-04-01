@@ -95,7 +95,7 @@ const deleteMessage = () => {
 					{{ store.getUserById(message.from_user_id).username }}
 				</div>
 				<div
-					class="p-4 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1 min-w-72"
+					class="p-4 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1 min-w-80"
 					:class="
 						message.from_user_id == store.state.current_user_id
 							? 'bg-indigo-500 text-white'
