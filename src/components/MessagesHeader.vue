@@ -30,16 +30,17 @@ const store = useStateStore()
 				</button>
 			</div>
 			<div class="flex">
-				<button
+				<a
+					href="/cp.php"
 					class="p-1.5 shrink-0 rounded border border-gray-200 hover:border-gray-300 shadow-sm ml-2"
 				>
-					<svg class="w-4 h-4 fill-current text-red-500" viewBox="0 0 24 24">
+					<svg class="w-8 h-8 fill-current text-red-500" viewBox="0 0 24 24">
 						<path
 							fill="currentColor"
 							d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
 						/>
 					</svg>
-				</button>
+				</a>
 			</div>
 		</div>
 	</div>
