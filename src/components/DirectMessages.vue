@@ -70,13 +70,13 @@ const getMessagesByUserLength = (user_id) => {
 		</div>
 		<ul class="mb-6">
 			<li
-				class="flex flex-row justify-left items-center -mx-2 mb-1"
+				class="flex flex-row justify-left items-center -mx-2 mb-1 w-full"
 				v-for="user in getUsers"
 				:key="user.id"
 			>
 				<input type="checkbox" class="mr-2 w-5 h-5" v-model="user.checked" />
 				<button
-					class="flex items-center justify-between w-full p-2 rounded hover:bg-indigo-100"
+					class="flex items-center justify-between grow p-2 rounded hover:bg-indigo-100"
 					:class="user.id == store.state.current_user_id ? 'bg-indigo-100' : ''"
 					@click.stop="changeUser(user.id)"
 				>
