@@ -53,10 +53,12 @@ const deleteMessage = () => {
 </script>
 
 <template>
-	<div class="grow px-4 sm:px-6 md:px-5 py-6">
+	<div
+		class="grow px-4 sm:px-6 md:px-5 py-6 h-[calc(100vh-190px)] overflow-y-auto"
+	>
 		<div
 			v-if="store.state.current_user_id === 0"
-			class="w-full text-center font-bold text-2xl text-red-600"
+			class="w-full text-center font-bold text-3xl text-red-600"
 		>
 			Изберете потребител за кореспонденция!
 		</div>
@@ -72,7 +74,7 @@ const deleteMessage = () => {
 		>
 			<img
 				v-if="store.getUserById(message.from_user_id).user_gravatar != ''"
-				class="w-10 h-10 rounded-full mr-2"
+				class="w-12 h-12 rounded-full mr-2"
 				:src="
 					'https://www.gravatar.com/avatar/' +
 					store.getUserById(message.from_user_id).user_gravatar
@@ -80,7 +82,7 @@ const deleteMessage = () => {
 			/>
 			<svg
 				v-if="store.getUserById(message.from_user_id).user_gravatar == ''"
-				class="w-10 h-10 mr-2"
+				class="w-12 h-12 mr-2"
 				viewBox="0 0 24 24"
 			>
 				<path
@@ -89,11 +91,11 @@ const deleteMessage = () => {
 				/>
 			</svg>
 			<div>
-				<div class="text-xs text-gray-500 font-medium">
+				<div class="text-base text-gray-500 font-medium">
 					{{ store.getUserById(message.from_user_id).username }}
 				</div>
 				<div
-					class="text-sm p-3 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1 min-w-44"
+					class="p-4 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1 min-w-72"
 					:class="
 						message.from_user_id == store.state.current_user_id
 							? 'bg-indigo-500 text-white'
@@ -103,11 +105,11 @@ const deleteMessage = () => {
 					{{ message.body }}
 				</div>
 				<div class="flex items-center">
-					<div class="flex-grow text-xs text-gray-500 font-medium">
+					<div class="flex-grow text-sm text-gray-500 font-medium">
 						{{ formatDateTime(message.created_at) }}
 					</div>
 					<svg
-						class="w-3 h-3 shrink-0 fill-current text-gray-400"
+						class="w-4 h-4 shrink-0 fill-current text-gray-400"
 						viewBox="0 0 12 12"
 					>
 						<path
@@ -119,7 +121,7 @@ const deleteMessage = () => {
 						title="Изтрий избраното съобщение"
 					>
 						<svg
-							class="w-5 h-5 text-red-400 hover:text-red-600"
+							class="w-8 h-8 text-red-400 hover:text-red-600"
 							viewBox="0 0 24 24"
 						>
 							<path
@@ -133,7 +135,7 @@ const deleteMessage = () => {
 		</div>
 		<div class="flex justify-center">
 			<div
-				class="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 bg-white border border-gray-200 rounded-full my-5"
+				class="inline-flex items-center justify-center text-sm font-medium px-2.5 py-1 bg-white border border-gray-200 rounded-full my-5"
 			>
 				{{ today() }}
 			</div>
@@ -150,7 +152,7 @@ const deleteMessage = () => {
 		>
 			<img
 				v-if="store.getUserById(message_old.from_user_id).user_gravatar != ''"
-				class="w-10 h-10 rounded-full mr-2"
+				class="w-12 h-12 rounded-full mr-2"
 				:src="
 					'https://www.gravatar.com/avatar/' +
 					store.getUserById(message_old.from_user_id).user_gravatar
@@ -158,7 +160,7 @@ const deleteMessage = () => {
 			/>
 			<svg
 				v-if="store.getUserById(message_old.from_user_id).user_gravatar == ''"
-				class="w-10 h-10 mr-2"
+				class="w-12 h-12 mr-2"
 				viewBox="0 0 24 24"
 			>
 				<path
@@ -167,11 +169,11 @@ const deleteMessage = () => {
 				/>
 			</svg>
 			<div>
-				<div class="text-xs text-gray-500 font-medium">
+				<div class="text-base text-gray-500 font-medium">
 					{{ store.getUserById(message_old.from_user_id).username }}
 				</div>
 				<div
-					class="text-sm p-3 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1"
+					class="p-4 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1"
 					:class="
 						message_old.from_user_id == store.state.current_user_id
 							? 'bg-indigo-500 text-white'
@@ -181,11 +183,11 @@ const deleteMessage = () => {
 					{{ message_old.body }}
 				</div>
 				<div class="flex items-center">
-					<div class="flex-grow text-xs text-gray-500 font-medium">
+					<div class="flex-grow text-sm text-gray-500 font-medium">
 						{{ formatDateTime(message_old.created_at) }}
 					</div>
 					<svg
-						class="w-3 h-3 shrink-0 fill-current text-gray-400"
+						class="w-4 h-4 shrink-0 fill-current text-gray-400"
 						viewBox="0 0 12 12"
 					>
 						<path
@@ -197,7 +199,7 @@ const deleteMessage = () => {
 						itle="Изтрий избраното съобщение"
 					>
 						<svg
-							class="w-5 h-5 text-red-400 hover:text-red-600"
+							class="w-8 h-8 text-red-400 hover:text-red-600"
 							viewBox="0 0 24 24"
 						>
 							<path
@@ -214,12 +216,12 @@ const deleteMessage = () => {
 			:modalOpen="store.state.deleteMessage"
 			@close-modal="store.state.deleteMessage = false"
 		>
-			<div class="p-5 flex space-x-4">
+			<div class="p-10 flex space-x-8">
 				<div
-					class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-red-100"
+					class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-red-100"
 				>
 					<svg
-						class="w-4 h-4 shrink-0 fill-current text-red-600"
+						class="w-6 h-6 shrink-0 fill-current text-red-600"
 						viewBox="0 0 16 16"
 					>
 						<path
@@ -229,11 +231,11 @@ const deleteMessage = () => {
 				</div>
 				<div>
 					<div class="mb-2">
-						<div class="text-lg font-semibold text-gray-800">
+						<div class="text-xl font-semibold text-gray-800">
 							Желаете ли да изтриете съобщението?
 						</div>
 					</div>
-					<div class="text-sm mb-10">
+					<div class="mb-10">
 						<div class="space-y-2">
 							<p>
 								Това съобщение ще бъде изтрито. Тази операция не може да се
@@ -243,13 +245,13 @@ const deleteMessage = () => {
 					</div>
 					<div class="flex flex-wrap justify-end space-x-2">
 						<button
-							class="btn-sm border-gray-200 hover:border-gray-300 text-gray-600"
+							class="btn-lg border-gray-200 hover:border-gray-300 text-gray-600"
 							@click.stop="store.state.deleteMessage = false"
 						>
 							Откажи
 						</button>
 						<button
-							class="btn-sm bg-red-500 hover:bg-red-600 text-white"
+							class="btn-lg bg-red-500 hover:bg-red-600 text-white"
 							@click.stop="deleteMessage()"
 						>
 							Да, Изтрий го!

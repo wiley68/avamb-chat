@@ -9,6 +9,14 @@ export default {
 			72: '28rem',
 			80: '30rem',
 		},
+		minWidth: {
+			36: '19rem',
+			44: '21rem',
+			56: '24rem',
+			60: '25rem',
+			72: '28rem',
+			80: '30rem',
+		},
 	},
 	plugins: [
 		// add custom variant for expanding sidebar
