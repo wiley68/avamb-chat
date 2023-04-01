@@ -77,7 +77,7 @@ const getMessagesByUserLength = (user_id) => {
 				<input type="checkbox" class="mr-2 w-4 h-4" v-model="user.checked" />
 				<button
 					class="flex items-center justify-between w-full p-2 rounded hover:bg-indigo-100"
-					:class="user.id == store.state.user.id ? 'bg-indigo-100' : ''"
+					:class="user.id == store.state.current_user_id ? 'bg-indigo-100' : ''"
 					@click.stop="changeUser(user.id)"
 				>
 					<div class="flex items-center truncate">

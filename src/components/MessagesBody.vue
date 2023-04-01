@@ -55,6 +55,12 @@ const deleteMessage = () => {
 <template>
 	<div class="grow px-4 sm:px-6 md:px-5 py-6">
 		<div
+			v-if="store.state.current_user_id === 0"
+			class="w-full text-center font-bold text-2xl text-red-600"
+		>
+			Изберете потребител за кореспонденция!
+		</div>
+		<div
 			v-for="message in messages_today"
 			:key="message.id"
 			class="flex items-center mb-4 last:mb-0"
@@ -200,48 +206,6 @@ const deleteMessage = () => {
 							/>
 						</svg>
 					</button>
-				</div>
-			</div>
-		</div>
-		<div class="flex items-start mb-4 last:mb-0">
-			<div>
-				<div
-					class="text-sm bg-white text-gray-800 p-3 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1"
-				>
-					<svg
-						class="fill-current text-gray-400"
-						viewBox="0 0 15 3"
-						width="15"
-						height="3"
-					>
-						<circle cx="1.5" cy="1.5" r="1.5">
-							<animate
-								attributeName="opacity"
-								dur="1s"
-								values="0;1;0"
-								repeatCount="indefinite"
-								begin="0.1"
-							/>
-						</circle>
-						<circle cx="7.5" cy="1.5" r="1.5">
-							<animate
-								attributeName="opacity"
-								dur="1s"
-								values="0;1;0"
-								repeatCount="indefinite"
-								begin="0.2"
-							/>
-						</circle>
-						<circle cx="13.5" cy="1.5" r="1.5">
-							<animate
-								attributeName="opacity"
-								dur="1s"
-								values="0;1;0"
-								repeatCount="indefinite"
-								begin="0.3"
-							/>
-						</circle>
-					</svg>
 				</div>
 			</div>
 		</div>
