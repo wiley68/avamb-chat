@@ -27,6 +27,7 @@ export const useStateStore = defineStore('store', {
       messages: [],
       deleteMessage: false,
       offers: [],
+      offer_id: 0,
     },
   }),
   actions: {

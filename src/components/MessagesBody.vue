@@ -7,6 +7,12 @@ import ModalBlank from './ModalBlank.vue'
 const store = useStateStore()
 const delete_message_id = ref(0)
 
+const messages = computed(() => {
+  return store.state.messages.filter((element) => {
+    return element.offer_id == store.state.offer_id
+  })
+})
+
 const messages_today = computed(() => {
   return store.state.messages.filter((element) => {
     return (
@@ -57,10 +63,99 @@ const deleteMessage = () => {
     class="grow px-4 sm:px-6 md:px-5 py-6 h-[calc(100vh-190px)] overflow-y-auto"
   >
     <div
-      v-if="store.state.current_user_id === 0"
+      v-if="
+        parseInt(store.state.current_user_id) === 0 &&
+        parseInt(store.state.offer_id) === 0
+      "
       class="w-full text-center font-bold text-3xl text-red-600"
     >
-      Изберете потребител за кореспонденция!
+      Изберете номер на оферта за кореспонденция!
+    </div>
+    <div
+      v-if="
+        parseInt(store.state.current_user_id) === 0 &&
+        parseInt(store.state.offer_id) !== 0
+      "
+      v-for="message in messages"
+      :key="message.id"
+      class="flex items-center justify-start mb-4 last:mb-0"
+    >
+      <img
+        v-if="store.getUserById(message.from_user_id).user_gravatar != ''"
+        class="w-12 h-12 rounded-full mr-2"
+        :src="
+          'https://www.gravatar.com/avatar/' +
+          store.getUserById(message.from_user_id).user_gravatar
+        "
+      />
+      <svg
+        v-if="store.getUserById(message.from_user_id).user_gravatar == ''"
+        class="w-12 h-12 mr-2"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"
+        />
+      </svg>
+      <div>
+        <div class="flex items-center">
+          <span class="text-lg text-red-600 font-bold">{{
+            message.offer_idnomber
+          }}</span>
+          <span class="ml-2 text-base text-gray-500 font-medium">{{
+            store.getUserById(message.from_user_id).username
+          }}</span
+          ><svg
+            class="w-6 h-6 ml-2 text-gray-400"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M5.59,7.41L7,6L13,12L7,18L5.59,16.59L10.17,12L5.59,7.41M11.59,7.41L13,6L19,12L13,18L11.59,16.59L16.17,12L11.59,7.41Z"
+            /></svg
+          ><span class="ml-2 text-base text-gray-500 font-medium">{{
+            store.getUserById(message.to_user_id).username
+          }}</span>
+        </div>
+        <div
+          class="p-4 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1 min-w-80"
+          :class="
+            message.from_user_id == store.state.current_user_id
+              ? 'bg-indigo-500 text-white'
+              : 'bg-white text-gray-800'
+          "
+        >
+          {{ message.body }}
+        </div>
+        <div class="flex items-center">
+          <div class="flex-grow text-sm text-gray-500 font-medium">
+            {{ formatDateTime(message.created_at) }}
+          </div>
+          <svg
+            class="w-4 h-4 shrink-0 fill-current text-gray-400"
+            viewBox="0 0 12 12"
+          >
+            <path
+              d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
+            />
+          </svg>
+          <button
+            @click.stop="deleteMessageCheck(message.id)"
+            title="Изтрий избраното съобщение"
+          >
+            <svg
+              class="w-8 h-8 text-red-400 hover:text-red-600"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
     <div
       v-for="message in messages_today"

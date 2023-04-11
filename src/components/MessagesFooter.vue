@@ -41,6 +41,7 @@ const sendMessage = () => {
     >
       <div class="flex h-12">
         <select
+          :disabled="store.state.current_user_id === 0"
           id="offer_id"
           v-model="offer_id"
           name="offer_id"
@@ -59,6 +60,7 @@ const sendMessage = () => {
       <div class="ml-2 grow flex">
         <div class="grow mr-3 flex">
           <input
+            :disabled="store.state.current_user_id === 0"
             id="message-input"
             class="grow pl-2 border border-gray-200 py-1 rounded hover:border-indigo-200 hover:bg-gray-50 focus:border-indigo-200 focus:bg-gray-50 outline-none"
             type="text"
