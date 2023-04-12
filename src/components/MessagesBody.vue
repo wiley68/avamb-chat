@@ -36,6 +36,10 @@ const deleteMessageCheck = (_delete_message_id) => {
   store.state.deleteMessage = true
 }
 
+const changeStatus = (_change_message_id) => {
+  store.changeStatus(_change_message_id)
+}
+
 const today = () => {
   return moment().format('dddd, MMMM DD.MM.YYYY HH:mm')
 }
@@ -186,7 +190,7 @@ const deleteMessage = () => {
         />
       </svg>
       <div>
-        <div>
+        <div class="flex items-center">
           <span class="text-lg text-red-600 font-bold">{{
             message.offer_idnomber
           }}</span>
@@ -208,14 +212,20 @@ const deleteMessage = () => {
           <div class="flex-grow text-sm text-gray-500 font-medium">
             {{ formatDateTime(message.created_at) }}
           </div>
-          <svg
-            class="w-4 h-4 shrink-0 fill-current text-gray-400"
-            viewBox="0 0 12 12"
+          <button
+            @click.stop="changeStatus(message.id)"
+            title="Промени статуса"
           >
-            <path
-              d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
-            />
-          </svg>
+            <svg
+              class="w-4 h-4 shrink-0 fill-current"
+              :class="message.status == 0 ? 'text-gray-400' : 'text-green-400'"
+              viewBox="0 0 12 12"
+            >
+              <path
+                d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
+              />
+            </svg>
+          </button>
           <button
             @click.stop="deleteMessageCheck(message.id)"
             title="Изтрий избраното съобщение"
@@ -269,11 +279,16 @@ const deleteMessage = () => {
         />
       </svg>
       <div>
-        <div class="text-base text-gray-500 font-medium">
-          {{ store.getUserById(message_old.from_user_id).username }}
+        <div class="flex items-center">
+          <span class="text-lg text-red-600 font-bold">{{
+            message_old.offer_idnomber
+          }}</span>
+          <div class="ml-2 text-base text-gray-500 font-medium">
+            {{ store.getUserById(message_old.from_user_id).username }}
+          </div>
         </div>
         <div
-          class="p-4 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1"
+          class="p-4 rounded-lg rounded-tl-none border border-gray-200 shadow-md mb-1 min-w-80"
           :class="
             message_old.from_user_id == store.state.current_user_id
               ? 'bg-indigo-500 text-white'
@@ -286,14 +301,22 @@ const deleteMessage = () => {
           <div class="flex-grow text-sm text-gray-500 font-medium">
             {{ formatDateTime(message_old.created_at) }}
           </div>
-          <svg
-            class="w-4 h-4 shrink-0 fill-current text-gray-400"
-            viewBox="0 0 12 12"
+          <button
+            @click.stop="changeStatus(message_old.id)"
+            title="Промени статуса"
           >
-            <path
-              d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
-            />
-          </svg>
+            <svg
+              class="w-4 h-4 shrink-0 fill-current text-gray-400"
+              :class="
+                message_old.status == 0 ? 'text-gray-400' : 'text-green-400'
+              "
+              viewBox="0 0 12 12"
+            >
+              <path
+                d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
+              />
+            </svg>
+          </button>
           <button
             @click.stop="deleteMessageCheck(message_old.id)"
             itle="Изтрий избраното съобщение"

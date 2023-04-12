@@ -36,7 +36,7 @@ export const useStateStore = defineStore('store', {
       var data = new FormData()
       var xmlhttpro = createCORSRequest(
         'POST',
-        '/function/mobile/getparams.php'
+        'https://dograma.avalonbg.com/function/mobile/getparams.php'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
@@ -67,7 +67,7 @@ export const useStateStore = defineStore('store', {
       data.append('user_id', store.state.user.id)
       var xmlhttpro = createCORSRequest(
         'POST',
-        '/function/get_messages.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+        'https://dograma.avalonbg.com/function/get_messages.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
@@ -106,7 +106,7 @@ export const useStateStore = defineStore('store', {
       data.append('id', message_id)
       var xmlhttpro = createCORSRequest(
         'POST',
-        '/function/delete_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+        'https://dograma.avalonbg.com/function/delete_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
@@ -144,7 +144,7 @@ export const useStateStore = defineStore('store', {
       data.append('offer_id', offer_id)
       var xmlhttpro = createCORSRequest(
         'POST',
-        '/function/create_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+        'https://dograma.avalonbg.com/function/create_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
@@ -173,6 +173,46 @@ export const useStateStore = defineStore('store', {
             updated_at: JSON.parse(this.response).updated_at,
           }
           store.state.messages.splice(0, 0, newMessage)
+        }
+      }
+      xmlhttpro.send(data)
+    },
+    changeStatus(message_id) {
+      let store = this
+      var data = new FormData()
+      data.append('token', '2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z')
+      data.append('id', message_id)
+      var xmlhttpro = createCORSRequest(
+        'POST',
+        'https://dograma.avalonbg.com/function/change_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+      )
+      const loader = $loading.show(loader_params)
+      xmlhttpro.addEventListener('loadend', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.addEventListener('error', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.addEventListener('abort', (e) => {
+        loader.hide()
+      })
+      xmlhttpro.onreadystatechange = function () {
+        if (
+          this.readyState == 4 &&
+          JSON.parse(this.response).success == 'success'
+        ) {
+          const status = store.state.messages.find(
+            (element) => element.id === message_id
+          ).status
+          if (status == 0) {
+            store.state.messages.find(
+              (element) => element.id === message_id
+            ).status = 1
+          } else {
+            store.state.messages.find(
+              (element) => element.id === message_id
+            ).status = 0
+          }
         }
       }
       xmlhttpro.send(data)

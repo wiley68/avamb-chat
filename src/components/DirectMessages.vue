@@ -53,11 +53,9 @@ const changeAllUsers = () => {
 const getMessagesByUserLength = (user_id) => {
   return store.state.messages.filter((element) => {
     return (
-      moment(element.created_at).date() == moment().date() &&
-      ((element.from_user_id == user_id &&
-        element.to_user_id == store.state.user.id) ||
-        (element.to_user_id == user_id &&
-          element.from_user_id == store.state.user.id))
+      element.from_user_id == user_id &&
+      element.to_user_id == store.state.user.id &&
+      element.status == 0
     )
   }).length
 }
