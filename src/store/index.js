@@ -36,7 +36,7 @@ export const useStateStore = defineStore('store', {
       var data = new FormData()
       var xmlhttpro = createCORSRequest(
         'POST',
-        'https://dograma.avalonbg.com/function/mobile/getparams.php'
+        '/function/mobile/getparams.php'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
@@ -67,7 +67,7 @@ export const useStateStore = defineStore('store', {
       data.append('user_id', store.state.user.id)
       var xmlhttpro = createCORSRequest(
         'POST',
-        'https://dograma.avalonbg.com/function/get_messages.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+        '/function/get_messages.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
@@ -106,7 +106,7 @@ export const useStateStore = defineStore('store', {
       data.append('id', message_id)
       var xmlhttpro = createCORSRequest(
         'POST',
-        'https://dograma.avalonbg.com/function/delete_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+        '/function/delete_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
@@ -144,7 +144,7 @@ export const useStateStore = defineStore('store', {
       data.append('offer_id', offer_id)
       var xmlhttpro = createCORSRequest(
         'POST',
-        'https://dograma.avalonbg.com/function/create_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+        '/function/create_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
@@ -184,7 +184,7 @@ export const useStateStore = defineStore('store', {
       data.append('id', message_id)
       var xmlhttpro = createCORSRequest(
         'POST',
-        'https://dograma.avalonbg.com/function/change_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
+        '/function/change_message.php?guid=2|2cEpMzPHz5mWtCaGqsER1Fe1t8YRBEg68CbfiU7Z'
       )
       const loader = $loading.show(loader_params)
       xmlhttpro.addEventListener('loadend', (e) => {
