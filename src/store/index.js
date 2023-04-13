@@ -55,6 +55,14 @@ export const useStateStore = defineStore('store', {
         ) {
           store.state.user = JSON.parse(this.response).user
           store.state.offers = JSON.parse(this.response).offers
+          const queryString = window.location.search
+          const urlParams = new URLSearchParams(queryString)
+          const offer_id = urlParams.get('offer_id')
+          if (offer_id !== 0) {
+            if (store.state.offers.find((element) => element.id === offer_id)) {
+              store.state.offer_id = offer_id
+            }
+          }
           store.getMessages()
         }
       }

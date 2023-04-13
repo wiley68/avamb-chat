@@ -64,7 +64,7 @@ const deleteMessage = () => {
 
 <template>
   <div
-    class="grow px-4 sm:px-6 md:px-5 py-6 h-[calc(100vh-190px)] overflow-y-auto"
+    class="grow px-4 sm:px-6 md:px-5 py-6 h-[calc(100vh-250px)] overflow-y-auto"
   >
     <div
       v-if="

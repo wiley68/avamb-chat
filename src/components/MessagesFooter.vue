@@ -39,26 +39,8 @@ const sendMessage = () => {
     <div
       class="flex items-center justify-between bg-white border-t border-gray-200 px-4 sm:px-6 md:px-5 h-16"
     >
-      <div class="flex h-12">
-        <select
-          :disabled="store.state.current_user_id === 0"
-          id="offer_id"
-          v-model="offer_id"
-          name="offer_id"
-          class="grow pl-2 border border-gray-200 py-1 rounded hover:border-indigo-200 hover:bg-gray-50 focus:border-indigo-200 focus:bg-gray-50 outline-none"
-        >
-          <option value="0">Избери номер на оферта</option>
-          <option
-            v-for="offer in store.state.offers"
-            :key="offer.id"
-            :value="offer.id"
-          >
-            {{ offer.idnomber }}
-          </option>
-        </select>
-      </div>
-      <div class="ml-2 grow flex">
-        <div class="grow mr-3 flex">
+      <div class="grow h-12 flex">
+        <div class="grow flex">
           <input
             :disabled="store.state.current_user_id === 0"
             id="message-input"
@@ -69,6 +51,30 @@ const sendMessage = () => {
             v-on:keyup.enter="sendMessage()"
           />
         </div>
+      </div>
+    </div>
+    <div
+      class="flex items-center justify-between bg-white px-4 sm:px-6 md:px-5 h-16"
+    >
+      <div class="flex grow">
+        <select
+          :disabled="store.state.current_user_id === 0"
+          id="offer_id"
+          v-model="offer_id"
+          name="offer_id"
+          class="grow h-12 pl-2 border border-gray-200 py-1 rounded hover:border-indigo-200 hover:bg-gray-50 focus:border-indigo-200 focus:bg-gray-50 outline-none"
+        >
+          <option value="0">Избери номер на оферта</option>
+          <option
+            v-for="offer in store.state.offers"
+            :key="offer.id"
+            :value="offer.id"
+          >
+            {{ offer.idnomber }} - {{ offer.client_name }}
+          </option>
+        </select>
+      </div>
+      <div class="ml-2 h-12 flex">
         <button
           :disabled="store.state.current_user_id === 0 || offer_id === 0"
           type="submit"
