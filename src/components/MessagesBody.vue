@@ -134,14 +134,17 @@ const deleteMessage = () => {
 					d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"
 				/>
 			</svg> -->
-			<svg
-				class="w-10 h-10 shrink-0 fill-current text-gray-400 mr-2"
-				viewBox="0 0 12 12"
-			>
-				<path
-					d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
-				/>
-			</svg>
+			<div title="При прочетено съобщение статуса е в зелено">
+				<svg
+					class="w-10 h-10 shrink-0 fill-current mr-2"
+					:class="message.status == 0 ? 'text-gray-400' : 'text-green-400'"
+					viewBox="0 0 12 12"
+				>
+					<path
+						d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
+					/>
+				</svg>
+			</div>
 			<div>
 				<div class="flex items-center">
 					<span class="text-xl text-red-600 font-bold">{{
@@ -221,7 +224,11 @@ const deleteMessage = () => {
 					d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"
 				/>
 			</svg> -->
-			<button @click.stop="changeStatus(message.id)" title="Промени статуса">
+			<button
+				:disabled="message.from_user_id != store.state.current_user_id"
+				@click.stop="changeStatus(message.id)"
+				title="При прочетено съобщение статуса е в зелено"
+			>
 				<svg
 					class="w-10 h-10 shrink-0 fill-current mr-2"
 					:class="message.status == 0 ? 'text-gray-400' : 'text-green-400'"
@@ -308,8 +315,9 @@ const deleteMessage = () => {
 				/>
 			</svg> -->
 			<button
+				:disabled="message_old.from_user_id != store.state.current_user_id"
 				@click.stop="changeStatus(message_old.id)"
-				title="Промени статуса"
+				title="При прочетено съобщение статуса е в зелено"
 			>
 				<svg
 					class="w-10 h-10 shrink-0 fill-current text-gray-400 mr-2"

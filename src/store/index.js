@@ -178,6 +178,7 @@ export const useStateStore = defineStore('store', {
 						from_user_id: JSON.parse(this.response).from_user_id,
 						to_user_id: JSON.parse(this.response).to_user_id,
 						body: JSON.parse(this.response).body,
+						status: JSON.parse(this.response).status,
 						created_at: JSON.parse(this.response).created_at,
 						updated_at: JSON.parse(this.response).updated_at,
 					}
