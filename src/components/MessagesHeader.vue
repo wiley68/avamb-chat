@@ -28,6 +28,28 @@ const store = useStateStore()
 						/>
 					</svg>
 				</button>
+				<div class="h-12 flex">
+					<input
+						:disabled="
+							parseInt(store.state.current_user_id) === 0 &&
+							parseInt(store.state.offer_id) === 0
+						"
+						class="min-w-56 pl-2 border border-gray-200 py-1 rounded hover:border-indigo-200 hover:bg-gray-50 focus:border-indigo-200 focus:bg-gray-50 outline-none"
+						type="text"
+						placeholder="Търси ..."
+						v-model="store.state.search"
+					/>
+					<button
+						@click="store.state.search = ''"
+						class="p-1.5 shrink-0 rounded border border-gray-200 hover:border-gray-300 shadow-sm ml-2"
+					>
+						<svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
+							<path
+								d="M19,15.59L17.59,17L14,13.41L10.41,17L9,15.59L12.59,12L9,8.41L10.41,7L14,10.59L17.59,7L19,8.41L15.41,12L19,15.59M22,3A2,2 0 0,1 24,5V19A2,2 0 0,1 22,21H7C6.31,21 5.77,20.64 5.41,20.11L0,12L5.41,3.88C5.77,3.35 6.31,3 7,3H22M22,5H7L2.28,12L7,19H22V5Z"
+							/>
+						</svg>
+					</button>
+				</div>
 			</div>
 			<div class="flex">
 				<a
