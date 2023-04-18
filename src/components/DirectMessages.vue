@@ -18,9 +18,11 @@ const checkedAll = () => {
 			.forEach((element) => {
 				element.checked = false
 			})
-		store.state.users.find(
-			(element) => element.id == store.state.current_user_id
-		).checked = true
+		if (store.state.current_user_id) {
+			store.state.users.find(
+				(element) => element.id == store.state.current_user_id
+			).checked = true
+		}
 	} else {
 		store.state.users
 			.filter((element) => {
@@ -47,6 +49,14 @@ const changeUser = (user_id) => {
 
 const changeAllUsers = () => {
 	store.state.current_user_id = 0
+	store.state.users
+		.filter((element) => {
+			return element.id != store.state.user.id
+		})
+		.forEach((element) => {
+			element.checked = false
+		})
+	store.state.users[1].checked = true
 	emit('close-msgsidebar')
 }
 

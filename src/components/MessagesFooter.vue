@@ -1,19 +1,33 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useStateStore } from '../store'
 
 const store = useStateStore()
 const message = ref('')
 const offer_id = ref(0)
 
+watch(store.state, (st) => {
+	if (st.offer_id != 0) {
+		offer_id.value = st.offer_id
+	}
+})
+
 const sendMessage = () => {
 	if (message.value.length > 0) {
-		store.state.users.find(
-			(element) => element.id == store.state.current_user_id
-		).checked = true
-		const users_checked = store.state.users.filter((element) => {
+		if (store.state.current_user_id) {
+			store.state.users.find(
+				(element) => element.id == store.state.current_user_id
+			).checked = true
+		}
+		let users_checked = store.state.users.filter((element) => {
 			return element.id != store.state.user.id && element.checked
 		})
+		if (users_checked.length == 0) {
+			store.state.users[1].checked = true
+			users_checked = store.state.users.filter((element) => {
+				return element.id != store.state.user.id && element.checked
+			})
+		}
 		users_checked.forEach((element) => {
 			store.createMessage(
 				store.state.user.id,
@@ -42,7 +56,6 @@ const sendMessage = () => {
 			<div class="grow h-12 flex">
 				<div class="grow flex">
 					<input
-						:disabled="store.state.current_user_id === 0"
 						id="message-input"
 						class="grow pl-2 border border-gray-200 py-1 rounded hover:border-indigo-200 hover:bg-gray-50 focus:border-indigo-200 focus:bg-gray-50 outline-none"
 						type="text"
@@ -58,7 +71,6 @@ const sendMessage = () => {
 		>
 			<div class="flex grow">
 				<select
-					:disabled="store.state.current_user_id === 0"
 					id="offer_id"
 					v-model="offer_id"
 					name="offer_id"
@@ -76,7 +88,7 @@ const sendMessage = () => {
 			</div>
 			<div class="ml-2 h-12 flex">
 				<button
-					:disabled="store.state.current_user_id === 0 || offer_id === 0"
+					:disabled="offer_id === 0"
 					type="submit"
 					title="Изпрати текста като съобщение"
 					class="btn btn-lg bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap"
